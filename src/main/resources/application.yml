@@ -1,0 +1,41 @@
+spring:
+    application:
+        name: beaware
+    datasource:
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:postgresql://localhost:5432/beaware
+        username: postgres
+        password: postgres
+    jpa:
+        open-in-view: false
+        properties:
+            hibernate.jdbc.time_zone: UTC
+            hibernate.id.new_generator_mappings: true
+            hibernate.connection.provider_disables_autocommit: true
+            hibernate.cache.use_second_level_cache: false
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: true
+        hibernate:
+            ddl-auto: none
+            naming:
+                physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+                implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        database: POSTGRESQL
+        show-sql: false
+    thymeleaf:
+        cache: false
+        enabled: true
+        prefix: classpath:/templates/
+        suffix: .html
+
+
+server:
+    servlet:
+        session:
+            cookie:
+                http-only: true
+    port:
+        8080
+
+application:
+
