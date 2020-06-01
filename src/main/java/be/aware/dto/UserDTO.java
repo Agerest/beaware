@@ -13,7 +13,7 @@ public class UserDTO {
 
     @NotNull
     @NotEmpty
-    private String userName;
+    private String username;
 
     @NotNull
     @NotEmpty
@@ -24,5 +24,4 @@ public class UserDTO {
     @NotEmpty
     @ValidEmail
     private String email;
-
 }

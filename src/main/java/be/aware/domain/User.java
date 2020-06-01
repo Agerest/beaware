@@ -1,6 +1,8 @@
 package be.aware.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -14,12 +16,15 @@ import java.time.Instant;
 import java.util.Collection;
 import java.util.Set;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Data
-@Table(name = "user")
+@Table(name = "user_rg")
 public class User implements UserDetails {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "password", nullable = false)
