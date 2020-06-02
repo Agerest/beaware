@@ -39,10 +39,6 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    @CreatedBy
-    @Column(name = "created_by")
-    private String createdBy;
-
     @CreatedDate
     @Column(name = "date_created")
     private Instant dateCreated = Instant.now();

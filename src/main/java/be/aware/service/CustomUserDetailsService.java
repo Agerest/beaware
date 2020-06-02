@@ -1,6 +1,5 @@
 package be.aware.service;
 
-import be.aware.domain.User;
 import be.aware.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

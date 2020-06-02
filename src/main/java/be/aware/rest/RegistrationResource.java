@@ -24,7 +24,7 @@ public class RegistrationResource {
 
     @PostMapping("/new-user")
     public ResponseEntity<Object> registerUserAccount(@Valid @RequestBody UserDTO userDto) {
-        log.debug("Registration new account, userDTO: {}", userDto);
+        log.debug("Registration new account, username: {}", userDto.getUsername());
         userService.registerNewUserAccount(userDto);
         return ResponseEntity.ok(userDto);
     }
