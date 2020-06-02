@@ -1,6 +1,7 @@
 package be.aware.domain;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -12,15 +13,13 @@ import javax.validation.constraints.NotNull;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.Base64;
+import java.util.List;
 
+@NoArgsConstructor
 @Entity
 @Data
 @Table(name = "channel")
-public class Channel {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Channel extends AbstractEntity {
 
     @Column(name = "name")
     private String name;
@@ -29,6 +28,9 @@ public class Channel {
     @Type(type = "org.hibernate.type.BinaryType")
     @Column(columnDefinition = "bytea")
     private byte[] photo;
+
+    @OneToMany
+    private List<Message> messages;
 
     @CreatedBy
     @Column(name = "created_by")
@@ -49,6 +51,11 @@ public class Channel {
     @NotNull
     @Column(name = "deleted")
     private Boolean deleted = false;
+
+    public Channel(String name, byte[] photo) {
+        this.name = name;
+        this.photo = photo;
+    }
 
     public String getEncodedPhoto() {
         byte[] encodedImage = Base64.getEncoder().encode(this.photo);

@@ -1,5 +1,6 @@
 package be.aware.service;
 
+import be.aware.domain.Channel;
 import be.aware.domain.Server;
 import be.aware.domain.Student;
 import be.aware.dto.ServerDTO;
@@ -25,13 +26,29 @@ public class ServerService {
     }
 
     public ServerDTO getById(Long id) throws NotFoundException {
-        Server server = serverRepository.getByIdAndDeletedFalse(id)
-                .orElseThrow(() -> new NotFoundException("Server not found, id: " + id));
+        Server server = getServer(id);
         return serverMapper.toDto(server);
     }
 
     public List<ServerDTO> getAll() {
         List<Server> server = serverRepository.findAllByDeletedFalse();
         return serverMapper.toDto(server);
+    }
+
+    public void addChannel(Long id, Channel channel) throws NotFoundException {
+        Server server = getServer(id);
+        server.getChannels().add(channel);
+        serverRepository.save(server);
+    }
+
+    private Server getServer(Long id) throws NotFoundException {
+        return serverRepository.getByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new NotFoundException("Server not found, id: " + id));
+    }
+
+    public void addStudent(Long id, Student student) throws NotFoundException {
+        Server server = getServer(id);
+        server.getStudents().add(student);
+        serverRepository.save(server);
     }
 }

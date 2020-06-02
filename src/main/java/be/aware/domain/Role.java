@@ -2,23 +2,19 @@ package be.aware.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-@EqualsAndHashCode
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "role")
-public class Role implements GrantedAuthority {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Role extends AbstractEntity implements GrantedAuthority {
 
     @Column(name = "name", unique = true, nullable = false)
     private String name;

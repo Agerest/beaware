@@ -14,11 +14,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "message")
-public class Message {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Message extends AbstractEntity {
 
     @OneToOne
     private Student owner;

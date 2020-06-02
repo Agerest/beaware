@@ -1,0 +1,9 @@
+package be.aware.mapper;
+
+import be.aware.domain.Channel;
+import be.aware.dto.channel.ChannelDTO;
+import org.mapstruct.Mapper;
+
+@Mapper(componentModel = "spring")
+public interface ChannelMapper extends AbstractEntityMapper<ChannelDTO, Channel> {
+}

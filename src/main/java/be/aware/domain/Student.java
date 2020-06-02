@@ -10,11 +10,7 @@ import java.util.Base64;
 @Entity
 @Data
 @Table(name = "student")
-public class Student {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Student extends AbstractEntity {
 
     @Column(name = "first_name")
     private String firstName;

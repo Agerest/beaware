@@ -3,7 +3,6 @@ package be.aware.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -21,11 +20,7 @@ import java.util.Set;
 @Entity
 @Data
 @Table(name = "user_rg")
-public class User implements UserDetails {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class User extends AbstractEntity implements UserDetails {
 
     @Column(name = "password", nullable = false)
     private String password;

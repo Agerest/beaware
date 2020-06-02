@@ -16,11 +16,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "server")
-public class Server {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Server extends AbstractEntity {
 
     @Column(name = "name")
     private String name;
