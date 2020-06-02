@@ -1,4 +1,7 @@
 <!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -34,25 +37,35 @@
 <div class="row main registration">
     <div class="container">
         <h2 class="center-align">LOGIN</h2>
-        <form class="col12">
+        <form class="col12" th:action="@{/login}" method="post">
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">account_circle</i>
-                    <input type="text" id="username">
+                    <input id="username" name="username" type="text" autofocus required>
                     <label for="username">username</label>
                 </div>
             </div>
-            <div class="row last-item">
+            <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">lock</i>
-                    <input type="password" id="password" class="password">
+                    <input id="password" type="password" class="password" name="password" required>
                     <label for="password">password</label>
+                    <div class="col s12" th:if="${param.error != null}">
+                        <h5 class="red-text check-info center-align">check input data</h5>
+                    </div>
                 </div>
             </div>
             <div class="center-align">
-                <button type="button" id="login" class="btn waves-effect waves-light">Submit
+                <button type="submit" id="login" class="btn waves-effect waves-light">Submit
                     <i class="material-icons right">send</i>
                 </button>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <p class="margin medium-small">
+                            <a th:href="@{/registration}">Sign Up!</a>
+                        </p>
+                    </div>
+                </div>
             </div>
         </form>
     </div>

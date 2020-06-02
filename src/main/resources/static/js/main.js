@@ -24,19 +24,4 @@ $(function(){
             $('.last-item').append("<h5 class=\"red-text check-info center-align\">check input data</h5>");
         }
     });
-
-    $('#login').click(function () {
-        let username = $("#username").val();
-        let password = $("#password").val();
-        req.open('POST', 'login?username=' + username + '&password=' + password, false);
-        req.send();
-        console.log(req.status);
-        if (req.status === 200) {
-            window.location.href="/main";
-        }
-        else {
-            $('.check-info').remove();
-            $('.last-item').append("<h5 class=\"red-text check-info center-align\">check input data</h5>");
-        }
-    });
 });
