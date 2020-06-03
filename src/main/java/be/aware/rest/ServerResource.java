@@ -1,6 +1,7 @@
 package be.aware.rest;
 
-import be.aware.dto.ServerDTO;
+import be.aware.dto.server.ServerDTO;
+import be.aware.dto.server.ServerInfoDTO;
 import be.aware.service.ChannelService;
 import be.aware.service.ServerService;
 import be.aware.service.StudentService;
@@ -9,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @AllArgsConstructor
@@ -22,10 +24,9 @@ public class ServerResource {
     private final StudentService studentService;
 
     @PostMapping("/create")
-    public Long createServer(@RequestParam String name,
-                             @RequestParam Long ownerId) throws NotFoundException {
-        log.debug("Creating new server, name: {}, ownerId: {}", name, ownerId);
-        return serverService.create(name, ownerId);
+    public Long createServer(@RequestBody @Valid ServerInfoDTO dto) throws NotFoundException {
+        log.debug("Creating new server {}", dto);
+        return serverService.create(dto);
     }
 
     @GetMapping("/{id}")

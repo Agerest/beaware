@@ -1,6 +1,5 @@
 package be.aware.dto;
 
-import be.aware.dto.image.ImageResponseDTO;
 import lombok.Data;
 
 import java.util.List;

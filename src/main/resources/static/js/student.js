@@ -1,6 +1,6 @@
 let req = new XMLHttpRequest();
 
-$(function(){
+$(function () {
     $('#personal').click(function () {
         let firstName = $("#firstName").val();
         let lastName = $("#lastName").val();
@@ -17,8 +17,7 @@ $(function(){
         console.log(req.status);
         if (req.status === 200) {
             imageId = req.responseText;
-        }
-        else {
+        } else {
             $('.check-info').remove();
             $('.last-item').append("<h5 class=\"red-text check-info center-align\">check input data</h5>");
             return;
@@ -34,10 +33,8 @@ $(function(){
         req.send(JSON.stringify(student));
         console.log(req.status);
         if (req.status === 200) {
-            console.log("ok")
-            /*window.location.href="/main";*/
-        }
-        else {
+            window.location.href = "/main";
+        } else {
             $('.check-info').remove();
             $('.last-item').append("<h5 class=\"red-text check-info center-align\">check input data</h5>");
         }

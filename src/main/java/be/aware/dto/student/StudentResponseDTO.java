@@ -1,6 +1,6 @@
 package be.aware.dto.student;
 
-import be.aware.dto.image.ImageResponseDTO;
+import be.aware.dto.ImageResponseDTO;
 import lombok.Data;
 
 @Data

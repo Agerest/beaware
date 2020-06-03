@@ -1,4 +1,4 @@
-package be.aware.dto.image;
+package be.aware.dto;
 
 import lombok.Data;
 

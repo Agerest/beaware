@@ -21,6 +21,9 @@ public class Server extends AbstractEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "description")
+    private String description;
+
     @OneToOne
     private Student owner;
 
@@ -50,8 +53,9 @@ public class Server extends AbstractEntity {
     @Column(name = "deleted")
     private Boolean deleted = false;
 
-    public Server(String name, Student owner) {
+    public Server(String name, Student owner, String description) {
         this.name = name;
         this.owner = owner;
+        this.description = description;
     }
 }

@@ -3,7 +3,8 @@ package be.aware.service;
 import be.aware.domain.Channel;
 import be.aware.domain.Server;
 import be.aware.domain.Student;
-import be.aware.dto.ServerDTO;
+import be.aware.dto.server.ServerDTO;
+import be.aware.dto.server.ServerInfoDTO;
 import be.aware.mapper.ServerMapper;
 import be.aware.repository.ServerRepository;
 import javassist.NotFoundException;
@@ -20,9 +21,9 @@ public class ServerService {
     private final StudentService studentService;
     private final ServerMapper serverMapper;
 
-    public Long create(String name, Long ownerId) throws NotFoundException {
-        Student student = studentService.getStudentById(ownerId);
-        return serverRepository.save(new Server(name, student)).getId();
+    public Long create(ServerInfoDTO dto) throws NotFoundException {
+        Student student = studentService.getStudentById(dto.getOwnerId());
+        return serverRepository.save(new Server(dto.getName(), student, dto.getDescription())).getId();
     }
 
     public ServerDTO getById(Long id) throws NotFoundException {
