@@ -1,5 +1,5 @@
 let req = new XMLHttpRequest();
-let studentId;
+var studentId;
 let servers;
 
 req.open('GET', 'api/student/current', false);

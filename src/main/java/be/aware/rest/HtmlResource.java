@@ -32,4 +32,9 @@ public class HtmlResource {
     public String student(Model model) {
         return "student";
     }
+
+    @RequestMapping(value = {"/account"}, method = RequestMethod.GET)
+    public String account(Model model) {
+        return "personal";
+    }
 }
