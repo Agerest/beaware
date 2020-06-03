@@ -18,8 +18,18 @@ public class HtmlResource {
         return "registration";
     }
 
-    @RequestMapping(/*value = {"/"}, */method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String index(Model model) {
         return "index";
+    }
+
+    @RequestMapping(value = {"/main"}, method = RequestMethod.GET)
+    public String main(Model model) {
+        return "main";
+    }
+
+    @RequestMapping(value = {"/student"}, method = RequestMethod.GET)
+    public String student(Model model) {
+        return "student";
     }
 }

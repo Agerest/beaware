@@ -36,36 +36,39 @@
 
 <div class="row main registration">
     <div class="container">
-        <h2 class="center-align">LOGIN</h2>
-        <form class="col12" th:action="@{/login}" method="post">
+        <h2 class="center-align">PERSONAL DATA</h2>
+        <form class="col12" enctype="multipart/form-data">
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="material-icons prefix">account_circle</i>
-                    <input id="username" name="username" type="text" autofocus required>
-                    <label for="username">username</label>
+                    <i class="material-icons prefix">info</i>
+                    <input id="firstName" name="firstName" type="text" autofocus required>
+                    <label for="firstName">first name</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="material-icons prefix">lock</i>
-                    <input id="password" type="password" class="password" name="password" required>
-                    <label for="password">password</label>
-                    <div class="col s12" th:if="${param.error != null}">
-                        <h5 class="red-text check-info center-align">check input data</h5>
+                    <i class="material-icons prefix">info</i>
+                    <input id="lastName" name="lastName" type="text" required>
+                    <label for="lastName">last name</label>
+                </div>
+            </div>
+            <div class="row last-item">
+                <div class="file-field input-field col s12">
+                    <div class="btn">
+                        <span>Browse</span>
+                        <input id="photo1" type="file" name="photo" accept="Image/*">
+                        <label for="photo1"></label>
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input id="photo2" class="file-path validate" type="text" name="photo" placeholder="photo" >
+                        <label for="photo2"></label>
                     </div>
                 </div>
             </div>
             <div class="center-align">
-                <button type="submit" id="login" class="btn waves-effect waves-light">Submit
+                <button type="button" id="personal" class="btn waves-effect waves-light">Submit
                     <i class="material-icons right">send</i>
                 </button>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <p class="margin medium-small">
-                            <a th:href="@{/registration}">Sign Up!</a>
-                        </p>
-                    </div>
-                </div>
             </div>
         </form>
     </div>
@@ -74,6 +77,6 @@
 <!--JavaScript at end of body for optimized loading-->
 <script type="text/javascript" src="../js/materialize.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javascript" src="../js/index.js"></script>
+<script type="text/javascript" src="../js/student.js"></script>
 </body>
 </html>

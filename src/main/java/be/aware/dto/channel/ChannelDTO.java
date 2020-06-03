@@ -1,6 +1,7 @@
 package be.aware.dto.channel;
 
-import be.aware.domain.Message;
+import be.aware.dto.image.ImageResponseDTO;
+import be.aware.dto.MessageDTO;
 import lombok.Data;
 
 import java.util.List;
@@ -9,6 +10,6 @@ import java.util.List;
 public class ChannelDTO {
 
     private String name;
-    private byte[] photo;
-    private List<Message> messages;
+    private ImageResponseDTO photo;
+    private List<MessageDTO> messages;
 }

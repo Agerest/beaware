@@ -2,7 +2,6 @@ package be.aware.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -10,9 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.nio.charset.StandardCharsets;
 import java.time.Instant;
-import java.util.Base64;
 import java.util.List;
 
 @NoArgsConstructor
@@ -24,10 +21,8 @@ public class Channel extends AbstractEntity {
     @Column(name = "name")
     private String name;
 
-    @Lob
-    @Type(type = "org.hibernate.type.BinaryType")
-    @Column(columnDefinition = "bytea")
-    private byte[] photo;
+    @OneToOne
+    private Image photo;
 
     @OneToMany
     private List<Message> messages;
@@ -52,13 +47,8 @@ public class Channel extends AbstractEntity {
     @Column(name = "deleted")
     private Boolean deleted = false;
 
-    public Channel(String name, byte[] photo) {
+    public Channel(String name, Image photo) {
         this.name = name;
         this.photo = photo;
-    }
-
-    public String getEncodedPhoto() {
-        byte[] encodedImage = Base64.getEncoder().encode(this.photo);
-        return new String(encodedImage, StandardCharsets.UTF_8);
     }
 }

@@ -1,12 +1,14 @@
 package be.aware.domain;
 
 import lombok.Data;
-import org.hibernate.annotations.Type;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+@NoArgsConstructor
 @Entity
 @Data
 @Table(name = "student")
@@ -18,16 +20,19 @@ public class Student extends AbstractEntity {
     @Column(name = "last_name")
     private String lastName;
 
-    @Lob
-    @Type(type = "org.hibernate.type.BinaryType")
-    @Column(columnDefinition = "bytea")
-    private byte[] photo;
+    @OneToOne
+    private Image photo;
 
     @OneToOne
     private User user;
 
-    public String getEncodedPhoto() {
-        byte[] encodedImage = Base64.getEncoder().encode(this.photo);
-        return new String(encodedImage, StandardCharsets.UTF_8);
+    public Student(String firstName,
+                   String lastName,
+                   Image photo,
+                   User user) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.photo = photo;
+        this.user = user;
     }
 }

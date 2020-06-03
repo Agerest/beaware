@@ -11,7 +11,7 @@ spring:
         properties:
             hibernate.jdbc.time_zone: UTC
         hibernate:
-            ddl-auto: create
+            ddl-auto: update
         database: POSTGRESQL
         show-sql: false
         generate-ddl: true

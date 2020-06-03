@@ -1,13 +1,11 @@
 package be.aware.service;
 
-import be.aware.domain.Role;
 import be.aware.domain.User;
 import be.aware.dto.UserDTO;
 import be.aware.exception.UserAlreadyExistException;
 import be.aware.mapper.UserMapper;
 import be.aware.repository.UserRepository;
 import be.aware.util.RoleConstant;
-import com.google.common.collect.ImmutableSet;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,5 +32,10 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setRoles(Collections.singleton(roleService.getByName(RoleConstant.USER_ROLE)));
         return userRepository.save(user);
+    }
+
+    public User getByUsername(String username) {
+        return userRepository.findByUsernameAndDeletedFalse(username)
+                .orElseThrow(() -> new UsernameNotFoundException("No user found with username: " + username));
     }
 }

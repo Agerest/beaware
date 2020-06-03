@@ -1,7 +1,6 @@
 package be.aware.dto.channel;
 
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -12,5 +11,5 @@ public class ChannelInfoDTO {
     @NotEmpty
     private String name;
     @NotNull
-    private MultipartFile photo;
+    private Long imageId;
 }

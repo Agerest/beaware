@@ -1,6 +1,7 @@
 package be.aware.domain;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -16,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.Base64;
 
+@NoArgsConstructor
 @Entity
 @Data
 @Table(name = "image")
@@ -45,6 +47,10 @@ public class Image extends AbstractEntity {
     @NotNull
     @Column(name = "deleted")
     private Boolean deleted = false;
+
+    public Image(byte[] photo) {
+        this.photo = photo;
+    }
 
     public String getEncodedPhoto() {
         byte[] encodedImage = Base64.getEncoder().encode(this.photo);

@@ -1,7 +1,7 @@
 package be.aware.dto;
 
-import be.aware.domain.Channel;
-import be.aware.domain.Student;
+import be.aware.dto.channel.ChannelDTO;
+import be.aware.dto.student.StudentResponseDTO;
 import lombok.Data;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 public class ServerDTO {
 
     private String name;
-    private Student owner;
-    private List<Student> students;
-    private List<Channel> channels;
+    private StudentResponseDTO owner;
+    private List<StudentResponseDTO> students;
+    private List<ChannelDTO> channels;
 }

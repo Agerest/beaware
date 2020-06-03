@@ -23,13 +23,13 @@ public class ChannelResource {
     private final ChannelMapper channelMapper;
 
     @PostMapping("/create")
-    public Long createChannel(@RequestBody ChannelInfoDTO dto) throws IOException {
+    public Long createChannel(@RequestBody ChannelInfoDTO dto) throws IOException, NotFoundException {
         log.debug("Creating new channel: {}", dto);
         return channelService.create(dto);
     }
 
     @PostMapping("/{id}/add-message")
-    public void addChannel(@PathVariable("id") Long id,
+    public void addMessage(@PathVariable("id") Long id,
                            @RequestParam Long messageId) throws NotFoundException {
         log.debug("Adding message with id {} to server with id {}", messageId, id);
         channelService.addMessage(id, messageService.getById(id));
