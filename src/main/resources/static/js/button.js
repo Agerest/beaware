@@ -81,4 +81,8 @@ $(function(){
             $('.last-item').append("<h5 class=\"red-text check-info center-align\">check input data</h5>");
         }
     });
+    $('.servers').on("click", "a", function(){
+        let id = $(this).attr('id');
+        console.log(id)
+    });
 });

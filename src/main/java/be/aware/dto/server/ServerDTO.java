@@ -9,6 +9,7 @@ import java.util.List;
 @Data
 public class ServerDTO {
 
+    private Long id;
     private String name;
     private String description;
     private StudentResponseDTO owner;
