@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.List;
 
 @AllArgsConstructor
 @Service
@@ -36,5 +37,11 @@ public class ChannelService {
         Channel channel = getById(id);
         channel.getMessages().add(message);
         channelRepository.save(channel);
+    }
+
+    @Transactional
+    public List<Message> getMessages(Long id) throws NotFoundException {
+        Channel channel = getById(id);
+        return channel.getMessages();
     }
 }

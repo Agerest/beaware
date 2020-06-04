@@ -42,9 +42,4 @@ public class HtmlResource {
     public String server(Model model) {
         return "server";
     }
-
-    @RequestMapping(value = {"/channel"}, method = RequestMethod.GET)
-    public String channel(Model model) {
-        return "channel";
-    }
 }

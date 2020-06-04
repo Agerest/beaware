@@ -1,18 +1,20 @@
 package be.aware.domain;
 
 import lombok.Data;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
-import java.util.List;
 
+@NoArgsConstructor
 @Entity
 @Data
 @Table(name = "message")
@@ -24,9 +26,8 @@ public class Message extends AbstractEntity {
     @Column(name = "message")
     private String message;
 
-    @OneToMany
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Image> images;
+    @OneToOne
+    private Image image;
 
     @CreatedBy
     @Column(name = "created_by")
@@ -47,4 +48,12 @@ public class Message extends AbstractEntity {
     @NotNull
     @Column(name = "deleted")
     private Boolean deleted = false;
+
+    public Message(Student owner,
+                   String message,
+                   Image image) {
+        this.owner = owner;
+        this.image = image;
+        this.message = message;
+    }
 }

@@ -37,7 +37,7 @@ public class StudentResource {
     public Long getCurrentStudent(@AuthenticationPrincipal UserDetails userDetails) throws NotFoundException {
         String username = userDetails.getUsername();
         log.debug("Getting current student, username: {}", username);
-        return studentService.getByUsername(username);
+        return studentService.getByUsername(username).getId();
     }
 
     @GetMapping("/{id}")

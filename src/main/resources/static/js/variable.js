@@ -1,2 +1,0 @@
-var studentId;
-var serverId;

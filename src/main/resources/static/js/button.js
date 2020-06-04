@@ -1,4 +1,5 @@
 var serverId;
+var channelId;
 
 $(function () {
     $('#registration').click(function () {
@@ -102,7 +103,7 @@ $(function () {
                 "                <p>" + channels[i].description + "</p>\n" +
                 "            </div>\n" +
                 "            <div class=\"card-action\">\n" +
-                "                <a class='btn' id=\"" + channels[i].id + "\">go</a>\n" +
+                "                <a class='btn goChannel' id=\"" + channels[i].id + "\">go</a>\n" +
                 "            </div>" +
                 "         </div>");
         }
@@ -113,9 +114,8 @@ $(function () {
             '        </div>')
     });
     $('body').on("click", ".channelForm", function () {
-        $('#index').remove();
-        $('body').append(
-            '<div class="row main registration">\n' +
+        $('#index').empty();
+        $('#index').append(
             '    <div class="container">\n' +
             '        <h2 class="center-align">CREATE CHANNEL</h2>\n' +
             '        <form class="col12">\n' +
@@ -152,8 +152,7 @@ $(function () {
             '                </button>\n' +
             '            </div>\n' +
             '        </form>\n' +
-            '    </div>\n' +
-            '</div>')
+            '    </div>');
     });
     $('body').on("click", "#channel", function () {
         let imageId;
@@ -198,6 +197,122 @@ $(function () {
         }
 
         req.open('POST', 'api/server/' + serverId + '/add-channel?channelId=' + channelId, false);
+        req.send();
+        console.log(req.status);
+        if (req.status === 200) {
+            window.location.href = "/main";
+        } else {
+            $('.check-info').remove();
+            $('.last-item').append("<h5 class=\"red-text check-info center-align\">check input data</h5>");
+            return;
+        }
+    });
+    $('body').on("click", ".goChannel", function () {
+        channelId = $(this).attr('id');
+        $('#index').empty();
+        $('#index').append(
+            '    <div class="row center-align">\n' +
+            '        <h1>NEWS</h1>\n' +
+            '    </div>' +
+            '        <div class="row">\n' +
+            '           <ul class="collection"></ul>\n' +
+            '    </div>');
+
+        req.open('GET', 'api/channel/' + channelId + '/messages', false);
+        req.send();
+        console.log(req.status);
+        let messages = JSON.parse(req.responseText);
+        for (let i = 0; i < messages.length; i++) {
+            $('.collection').append(
+                '            <li class="collection-item avatar">\n' +
+                '                <i class="material-icons circle red">book</i>\n' +
+                '                <p>' + messages[i].message + '</p>\n' +
+                '                <div class="top30 images center-align">\n' +
+                "                   <img src=\"data:image/jpg;base64," + messages[i].image.photo + "\">\n" +
+                '                </div>\n' +
+                '            </li>');
+        }
+        $('.main').append(
+            '    <div class="row main center-align">\n' +
+            '        <a class="btn messageForm waves-effect waves-light">new message\n' +
+            '            <i class="material-icons right">add</i></a>\n' +
+            '    </div>')
+    });
+    $('body').on("click", ".messageForm", function () {
+        $('#index').empty();
+        $('#index').append(
+            '    <div class="container">\n' +
+            '        <h2 class="center-align">NEW MESSAGE</h2>\n' +
+            '        <form class="col12">\n' +
+            '            <div class="row">\n' +
+            '                <div class="input-field col s12">\n' +
+            '                    <i class="material-icons prefix">mode_edit</i>\n' +
+            '                    <textarea id="icon_prefix2" class="message materialize-textarea"></textarea>\n' +
+            '                    <label for="icon_prefix2">message</label>\n' +
+            '                </div>\n' +
+            '            </div>\n' +
+            '            <div class="row last-item">\n' +
+            '                <div class="file-field input-field col s12">\n' +
+            '                    <div class="btn">\n' +
+            '                        <span>Browse</span>\n' +
+            '                        <input id="photo1" type="file" name="photo" accept="Image/*">\n' +
+            '                        <label for="photo1"></label>\n' +
+            '                    </div>\n' +
+            '                    <div class="file-path-wrapper">\n' +
+            '                        <input id="photo2" class="file-path validate" type="text" name="photo" placeholder="photo">\n' +
+            '                        <label for="photo2"></label>\n' +
+            '                    </div>\n' +
+            '                </div>\n' +
+            '            </div>\n' +
+            '            <div class="center-align">\n' +
+            '                <button type="button" id="newMessage" class="btn waves-effect waves-light">Submit\n' +
+            '                    <i class="material-icons right">send</i>\n' +
+            '                </button>\n' +
+            '            </div>\n' +
+            '        </form>\n' +
+            '    </div>');
+    });
+    $('body').on("click", "#newMessage", function () {
+        let imageId;
+
+        let photo = $('#photo1');
+        console.log(photo)
+        let formData = new FormData();
+        let image = photo[0].files[0];
+        console.log(image)
+        formData.append("image", image)
+        req.open('POST', 'api/image/create', false);
+        req.send(formData);
+        console.log(req.status);
+        if (req.status === 200) {
+            imageId = req.responseText;
+        } else {
+            $('.check-info').remove();
+            $('.last-item').append("<h5 class=\"red-text check-info center-align\">check input data</h5>");
+            return;
+        }
+
+        let messageId;
+
+        let text = $(".message").val();
+        let message = {};
+        message.imageId = imageId;
+        message.message = text;
+        console.log(message)
+        req.open('POST', 'api/message/create', false);
+        req.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+        req.send(JSON.stringify(message));
+        console.log(req.status);
+        if (req.status === 200) {
+            messageId = req.responseText;
+            console.log(channelId);
+        } else {
+            $('.check-info').remove();
+            $('.last-item').append("<h5 class=\"red-text check-info center-align\">check input data</h5>");
+            return;
+        }
+
+        req.open('POST', 'api/channel/' + channelId + '/add-message?messageId=' + messageId, false);
         req.send();
         console.log(req.status);
         if (req.status === 200) {
