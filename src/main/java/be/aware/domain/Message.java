@@ -1,6 +1,8 @@
 package be.aware.domain;
 
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -23,6 +25,7 @@ public class Message extends AbstractEntity {
     private String message;
 
     @OneToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Image> images;
 
     @CreatedBy

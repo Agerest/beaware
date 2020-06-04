@@ -2,6 +2,8 @@ package be.aware.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -28,9 +30,11 @@ public class Server extends AbstractEntity {
     private Student owner;
 
     @OneToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Student> students;
 
     @OneToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Channel> channels;
 
     @CreatedBy

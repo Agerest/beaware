@@ -3,6 +3,7 @@ package be.aware.service;
 import be.aware.domain.Channel;
 import be.aware.domain.Server;
 import be.aware.domain.Student;
+import be.aware.dto.channel.ChannelDTO;
 import be.aware.dto.server.ServerDTO;
 import be.aware.dto.server.ServerInfoDTO;
 import be.aware.mapper.ServerMapper;
@@ -12,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -57,5 +59,11 @@ public class ServerService {
         Server server = getServer(id);
         server.getStudents().add(student);
         serverRepository.save(server);
+    }
+
+    @Transactional
+    public List<Channel> getChannels(Long id) throws NotFoundException {
+        Server server = getServer(id);
+        return server.getChannels();
     }
 }

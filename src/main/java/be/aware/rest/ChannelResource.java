@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.io.IOException;
 
 @AllArgsConstructor
@@ -23,7 +24,7 @@ public class ChannelResource {
     private final ChannelMapper channelMapper;
 
     @PostMapping("/create")
-    public Long createChannel(@RequestBody ChannelInfoDTO dto) throws IOException, NotFoundException {
+    public Long createChannel(@RequestBody @Valid ChannelInfoDTO dto) throws IOException, NotFoundException {
         log.debug("Creating new channel: {}", dto);
         return channelService.create(dto);
     }

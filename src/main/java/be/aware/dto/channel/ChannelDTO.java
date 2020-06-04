@@ -9,7 +9,8 @@ import java.util.List;
 @Data
 public class ChannelDTO {
 
+    private Long id;
+    private String description;
     private String name;
     private ImageResponseDTO photo;
-    private List<MessageDTO> messages;
 }

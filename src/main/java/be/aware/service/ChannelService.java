@@ -28,7 +28,7 @@ public class ChannelService {
     @Transactional
     public Long create(ChannelInfoDTO dto) throws IOException, NotFoundException {
         Image image = imageService.getById(dto.getImageId());
-        return channelRepository.save(new Channel(dto.getName(), image)).getId();
+        return channelRepository.save(new Channel(dto.getName(), image, dto.getDescription())).getId();
     }
 
     @Transactional

@@ -1,7 +1,9 @@
 package be.aware.rest;
 
+import be.aware.dto.channel.ChannelDTO;
 import be.aware.dto.server.ServerDTO;
 import be.aware.dto.server.ServerInfoDTO;
+import be.aware.mapper.ChannelMapper;
 import be.aware.service.ChannelService;
 import be.aware.service.ServerService;
 import be.aware.service.StudentService;
@@ -22,6 +24,7 @@ public class ServerResource {
     private final ServerService serverService;
     private final ChannelService channelService;
     private final StudentService studentService;
+    private final ChannelMapper channelMapper;
 
     @PostMapping("/create")
     public Long createServer(@RequestBody @Valid ServerInfoDTO dto) throws NotFoundException {
@@ -53,5 +56,11 @@ public class ServerResource {
                            @RequestParam Long studentId) throws NotFoundException {
         log.debug("Adding student with id {} to server with id {}", studentId, id);
         serverService.addStudent(id, studentService.getStudentById(id));
+    }
+
+    @GetMapping("/{id}/get-channels")
+    public List<ChannelDTO> getChannels(@PathVariable("id") Long id) throws NotFoundException {
+        log.debug("Getting channels for server with id {}", id);
+        return channelMapper.toDto(serverService.getChannels(id));
     }
 }

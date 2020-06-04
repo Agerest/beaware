@@ -10,6 +10,8 @@ public class ChannelInfoDTO {
 
     @NotEmpty
     private String name;
+    @NotEmpty
+    private String description;
     @NotNull
     private Long imageId;
 }

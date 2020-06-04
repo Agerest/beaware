@@ -2,6 +2,8 @@ package be.aware.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -21,10 +23,14 @@ public class Channel extends AbstractEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "description")
+    private String description;
+
     @OneToOne
     private Image photo;
 
     @OneToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Message> messages;
 
     @CreatedBy
@@ -47,8 +53,9 @@ public class Channel extends AbstractEntity {
     @Column(name = "deleted")
     private Boolean deleted = false;
 
-    public Channel(String name, Image photo) {
+    public Channel(String name, Image photo, String description) {
         this.name = name;
         this.photo = photo;
+        this.description = description;
     }
 }
