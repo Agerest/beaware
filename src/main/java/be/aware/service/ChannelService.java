@@ -8,6 +8,7 @@ import be.aware.repository.ChannelRepository;
 import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 
@@ -18,16 +19,19 @@ public class ChannelService {
     private final ChannelRepository channelRepository;
     private final ImageService imageService;
 
+    @Transactional
     public Channel getById(Long id) throws NotFoundException {
         return channelRepository.findByIdAndDeletedFalse(id)
                 .orElseThrow(() -> new NotFoundException("Channel not found, id: " + id));
     }
 
+    @Transactional
     public Long create(ChannelInfoDTO dto) throws IOException, NotFoundException {
         Image image = imageService.getById(dto.getImageId());
         return channelRepository.save(new Channel(dto.getName(), image)).getId();
     }
 
+    @Transactional
     public void addMessage(Long id, Message message) throws NotFoundException {
         Channel channel = getById(id);
         channel.getMessages().add(message);

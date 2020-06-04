@@ -1,22 +1,10 @@
-let req = new XMLHttpRequest();
-var studentId;
 let servers;
-
-req.open('GET', 'api/student/current', false);
-req.send();
-console.log(req.status);
-if (req.status === 200) {
-    studentId = req.responseText;
-    console.log(studentId)
-} else {
-    window.location.href = "/student";
-}
 
 $(function () {
     req.open('GET', 'api/server/list', false);
     req.send();
     console.log(req.status);
-    servers = req.responseText;
+    servers = JSON.parse(req.responseText);
     console.log(servers);
     for (let i = 0; i < servers.length; i++) {
         $('.cards').append(

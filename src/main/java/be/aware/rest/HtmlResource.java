@@ -37,4 +37,9 @@ public class HtmlResource {
     public String account(Model model) {
         return "personal";
     }
+
+    @RequestMapping(value = {"/server"}, method = RequestMethod.GET)
+    public String server(Model model) {
+        return "server";
+    }
 }

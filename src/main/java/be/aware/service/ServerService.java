@@ -10,6 +10,7 @@ import be.aware.repository.ServerRepository;
 import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,21 +22,25 @@ public class ServerService {
     private final StudentService studentService;
     private final ServerMapper serverMapper;
 
+    @Transactional
     public Long create(ServerInfoDTO dto) throws NotFoundException {
         Student student = studentService.getStudentById(dto.getOwnerId());
         return serverRepository.save(new Server(dto.getName(), student, dto.getDescription())).getId();
     }
 
+    @Transactional
     public ServerDTO getById(Long id) throws NotFoundException {
         Server server = getServer(id);
         return serverMapper.toDto(server);
     }
 
+    @Transactional
     public List<ServerDTO> getAll() {
         List<Server> server = serverRepository.findAllByDeletedFalse();
         return serverMapper.toDto(server);
     }
 
+    @Transactional
     public void addChannel(Long id, Channel channel) throws NotFoundException {
         Server server = getServer(id);
         server.getChannels().add(channel);
@@ -47,6 +52,7 @@ public class ServerService {
                 .orElseThrow(() -> new NotFoundException("Server not found, id: " + id));
     }
 
+    @Transactional
     public void addStudent(Long id, Student student) throws NotFoundException {
         Server server = getServer(id);
         server.getStudents().add(student);

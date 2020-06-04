@@ -2,6 +2,7 @@ package be.aware.rest;
 
 import be.aware.domain.Image;
 import be.aware.domain.User;
+import be.aware.dto.student.PersonalAccountDTO;
 import be.aware.dto.student.StudentDTO;
 import be.aware.service.ImageService;
 import be.aware.service.StudentService;
@@ -37,5 +38,11 @@ public class StudentResource {
         String username = userDetails.getUsername();
         log.debug("Getting current student, username: {}", username);
         return studentService.getByUsername(username);
+    }
+
+    @GetMapping("/{id}")
+    public PersonalAccountDTO getStudentInfo(@PathVariable("id") Long id) throws NotFoundException {
+        log.debug("Getting student, id: {}", id);
+        return studentService.getPersonalInfo(id);
     }
 }

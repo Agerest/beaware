@@ -34,6 +34,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    @Transactional
     public User getByUsername(String username) {
         return userRepository.findByUsernameAndDeletedFalse(username)
                 .orElseThrow(() -> new UsernameNotFoundException("No user found with username: " + username));
