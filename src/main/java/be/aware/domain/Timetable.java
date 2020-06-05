@@ -2,40 +2,34 @@ package be.aware.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
-import java.util.List;
 
 @NoArgsConstructor
 @Entity
 @Data
-@Table(name = "channel")
-public class Channel extends AbstractEntity {
+@Table(name = "timetable")
+public class Timetable extends AbstractEntity {
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "date")
+    private String date;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "type")
+    private String type;
 
-    @OneToOne
-    private Image photo;
+    @Column(name = "classroom")
+    private String classroom;
 
-    @OneToMany
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Message> messages;
-
-    @OneToMany
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Timetable> timetables;
+    @Column(name = "teacher")
+    private String teacher;
 
     @CreatedBy
     @Column(name = "created_by")
@@ -57,9 +51,13 @@ public class Channel extends AbstractEntity {
     @Column(name = "deleted")
     private Boolean deleted = false;
 
-    public Channel(String name, Image photo, String description) {
-        this.name = name;
-        this.photo = photo;
-        this.description = description;
+    public Timetable(String date,
+                     String type,
+                     String classroom,
+                     String teacher) {
+        this.date = date;
+        this.type = type;
+        this.classroom = classroom;
+        this.teacher = teacher;
     }
 }

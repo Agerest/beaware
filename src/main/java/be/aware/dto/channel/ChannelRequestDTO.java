@@ -6,7 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class ChannelInfoDTO {
+public class ChannelRequestDTO {
 
     @NotEmpty
     private String name;

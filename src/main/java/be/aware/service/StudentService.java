@@ -40,8 +40,7 @@ public class StudentService {
 
     @Transactional
     public PersonalAccountDTO getPersonalInfo(Long id) throws NotFoundException {
-        Student student = studentRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Student not found, id: " + id));
+        Student student = getStudentById(id);
         return studentMapper.toDto(student);
     }
 }

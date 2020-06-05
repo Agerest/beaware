@@ -3,7 +3,8 @@ package be.aware.service;
 import be.aware.domain.Channel;
 import be.aware.domain.Image;
 import be.aware.domain.Message;
-import be.aware.dto.channel.ChannelInfoDTO;
+import be.aware.domain.Timetable;
+import be.aware.dto.channel.ChannelRequestDTO;
 import be.aware.repository.ChannelRepository;
 import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
@@ -27,7 +28,7 @@ public class ChannelService {
     }
 
     @Transactional
-    public Long create(ChannelInfoDTO dto) throws IOException, NotFoundException {
+    public Long create(ChannelRequestDTO dto) throws IOException, NotFoundException {
         Image image = imageService.getById(dto.getImageId());
         return channelRepository.save(new Channel(dto.getName(), image, dto.getDescription())).getId();
     }
@@ -43,5 +44,18 @@ public class ChannelService {
     public List<Message> getMessages(Long id) throws NotFoundException {
         Channel channel = getById(id);
         return channel.getMessages();
+    }
+
+    @Transactional
+    public void addTimetable(Long id, Timetable timetable) throws NotFoundException {
+        Channel channel = getById(id);
+        channel.getTimetables().add(timetable);
+        channelRepository.save(channel);
+    }
+
+    @Transactional
+    public List<Timetable> getTimetables(Long id) throws NotFoundException {
+        Channel channel = getById(id);
+        return channel.getTimetables();
     }
 }

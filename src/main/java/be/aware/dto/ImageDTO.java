@@ -3,7 +3,7 @@ package be.aware.dto;
 import lombok.Data;
 
 @Data
-public class ImageResponseDTO {
+public class ImageDTO {
 
     private byte[] photo;
 }

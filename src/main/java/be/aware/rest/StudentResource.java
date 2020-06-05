@@ -3,7 +3,7 @@ package be.aware.rest;
 import be.aware.domain.Image;
 import be.aware.domain.User;
 import be.aware.dto.student.PersonalAccountDTO;
-import be.aware.dto.student.StudentDTO;
+import be.aware.dto.student.StudentRequestDTO;
 import be.aware.service.ImageService;
 import be.aware.service.StudentService;
 import be.aware.service.UserService;
@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @AllArgsConstructor
 @RestController
@@ -25,12 +27,12 @@ public class StudentResource {
     private final UserService userService;
 
     @PostMapping("/create")
-    public Long create(@RequestBody StudentDTO studentDTO,
+    public Long create(@RequestBody @Valid StudentRequestDTO studentRequestDTO,
                        @AuthenticationPrincipal UserDetails userDetails) throws NotFoundException {
-        log.debug("Creating new student: {}", studentDTO);
-        Image image = imageService.getById(studentDTO.getImageId());
+        log.debug("Creating new student: {}", studentRequestDTO);
+        Image image = imageService.getById(studentRequestDTO.getImageId());
         User user = userService.getByUsername(userDetails.getUsername());
-        return studentService.create(studentDTO.getFirstName(), studentDTO.getLastName(), image, user);
+        return studentService.create(studentRequestDTO.getFirstName(), studentRequestDTO.getLastName(), image, user);
     }
 
     @GetMapping("/current")

@@ -6,7 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class ServerInfoDTO {
+public class ServerRequestDTO {
 
     @NotEmpty
     private String name;

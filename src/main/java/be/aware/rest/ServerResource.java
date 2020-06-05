@@ -1,8 +1,8 @@
 package be.aware.rest;
 
-import be.aware.dto.channel.ChannelDTO;
-import be.aware.dto.server.ServerDTO;
-import be.aware.dto.server.ServerInfoDTO;
+import be.aware.dto.channel.ChannelResponseDTO;
+import be.aware.dto.server.ServerResponseDTO;
+import be.aware.dto.server.ServerRequestDTO;
 import be.aware.mapper.ChannelMapper;
 import be.aware.service.ChannelService;
 import be.aware.service.ServerService;
@@ -27,19 +27,19 @@ public class ServerResource {
     private final ChannelMapper channelMapper;
 
     @PostMapping("/create")
-    public Long createServer(@RequestBody @Valid ServerInfoDTO dto) throws NotFoundException {
+    public Long createServer(@RequestBody @Valid ServerRequestDTO dto) throws NotFoundException {
         log.debug("Creating new server {}", dto);
         return serverService.create(dto);
     }
 
     @GetMapping("/{id}")
-    public ServerDTO getServerById(@PathVariable("id") Long id) throws NotFoundException {
+    public ServerResponseDTO getServerById(@PathVariable("id") Long id) throws NotFoundException {
         log.debug("Getting server by id, id: {}", id);
         return serverService.getById(id);
     }
 
     @GetMapping("/list")
-    public List<ServerDTO> getAllServers() {
+    public List<ServerResponseDTO> getAllServers() {
         log.debug("Getting server list");
         return serverService.getAll();
     }
@@ -59,7 +59,7 @@ public class ServerResource {
     }
 
     @GetMapping("/{id}/get-channels")
-    public List<ChannelDTO> getChannels(@PathVariable("id") Long id) throws NotFoundException {
+    public List<ChannelResponseDTO> getChannels(@PathVariable("id") Long id) throws NotFoundException {
         log.debug("Getting channels for server with id {}", id);
         return channelMapper.toDto(serverService.getChannels(id));
     }

@@ -224,13 +224,7 @@ $(function () {
             '                <th>Teacher</th>\n' +
             '            </tr>\n' +
             '            </thead>\n' +
-            '            <tbody>\n' +
-            '            <tr>\n' +
-            '                <td>Monday 11:40</td>\n' +
-            '                <td>Lecture</td>\n' +
-            '                <td>2-10</td>\n' +
-            '                <td>Ed Sheeran</td>\n' +
-            '            </tr>\n' +
+            '            <tbody id="timetable">\n' +
             '            </tbody>\n' +
             '        </table>\n' +
             '        <div class="row main center-align">\n' +
@@ -244,6 +238,20 @@ $(function () {
             '        <div class="row">\n' +
             '           <ul class="collection"></ul>\n' +
             '    </div>');
+
+        req.open('GET', 'api/channel/' + channelId + '/timetables', false);
+        req.send();
+        console.log(req.status);
+        let timetables = JSON.parse(req.responseText);
+        for (let i = 0; i < timetables.length; i++) {
+            $('#timetable').append(
+                '            <tr>\n' +
+                '                <td>' + timetables[i].date + '</td>\n' +
+                '                <td>' + timetables[i].type + '</td>\n' +
+                '                <td>' + timetables[i].classroom + '</td>\n' +
+                '                <td>' + timetables[i].teacher + '</td>\n' +
+                '            </tr>')
+        }
 
         req.open('GET', 'api/channel/' + channelId + '/messages', false);
         req.send();
@@ -259,7 +267,7 @@ $(function () {
                 '                </div>\n' +
                 '            </li>');
         }
-        $('.main').append(
+        $('#index').append(
             '    <div class="row main center-align">\n' +
             '        <a class="btn messageForm waves-effect waves-light">new message\n' +
             '            <i class="material-icons right">add</i></a>\n' +
@@ -363,6 +371,27 @@ $(function () {
             '                    <label for="date">date</label>\n' +
             '                </div>\n' +
             '            </div>\n' +
+            '            <div class="row">\n' +
+            '                <div class="input-field col s12">\n' +
+            '                    <i class="material-icons prefix">mode_edit</i>\n' +
+            '                    <input id="type" name="type" type="text" required>\n' +
+            '                    <label for="type">type</label>\n' +
+            '                </div>\n' +
+            '            </div>\n' +
+            '            <div class="row">\n' +
+            '                <div class="input-field col s12">\n' +
+            '                    <i class="material-icons prefix">mode_edit</i>\n' +
+            '                    <input id="classroom" name="classroom" type="text" required>\n' +
+            '                    <label for="classroom">classroom</label>\n' +
+            '                </div>\n' +
+            '            </div>\n' +
+            '            <div class="row">\n' +
+            '                <div class="input-field col s12">\n' +
+            '                    <i class="material-icons prefix">mode_edit</i>\n' +
+            '                    <input id="teacher" name="teacher" type="text" required>\n' +
+            '                    <label for="teacher">teacher</label>\n' +
+            '                </div>\n' +
+            '            </div>\n' +
             '            <div class="center-align">\n' +
             '                <button type="button" id="newTimetable" class="btn waves-effect waves-light">Submit\n' +
             '                    <i class="material-icons right">send</i>\n' +
@@ -370,5 +399,42 @@ $(function () {
             '            </div>\n' +
             '        </form>\n' +
             '    </div>');
+    });
+    $('body').on("click", "#newTimetable", function () {
+        let timetableId;
+
+        let date = $("#date").val();
+        let type = $("#type").val();
+        let classroom = $("#classroom").val();
+        let teacher = $("#teacher").val();
+        let timetable = {};
+        timetable.date = date;
+        timetable.type = type;
+        timetable.classroom = classroom;
+        timetable.teacher = teacher;
+        console.log(timetable)
+        req.open('POST', 'api/timetable/create', false);
+        req.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+        req.send(JSON.stringify(timetable));
+        console.log(req.status);
+        if (req.status === 200) {
+            timetableId = req.responseText;
+            console.log(timetableId);
+        } else {
+            $('.check-info').remove();
+            $('.last-item').append("<h5 class=\"red-text check-info center-align\">check input data</h5>");
+            return;
+        }
+
+        req.open('POST', 'api/channel/' + channelId + '/add-timetable?timetableId=' + timetableId, false);
+        req.send();
+        console.log(req.status);
+        if (req.status === 200) {
+            window.location.href = "/main";
+        } else {
+            $('.check-info').remove();
+            $('.last-item').append("<h5 class=\"red-text check-info center-align\">check input data</h5>");
+            return;
+        }
     });
 });

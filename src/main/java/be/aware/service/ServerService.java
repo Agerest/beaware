@@ -3,9 +3,8 @@ package be.aware.service;
 import be.aware.domain.Channel;
 import be.aware.domain.Server;
 import be.aware.domain.Student;
-import be.aware.dto.channel.ChannelDTO;
-import be.aware.dto.server.ServerDTO;
-import be.aware.dto.server.ServerInfoDTO;
+import be.aware.dto.server.ServerResponseDTO;
+import be.aware.dto.server.ServerRequestDTO;
 import be.aware.mapper.ServerMapper;
 import be.aware.repository.ServerRepository;
 import javassist.NotFoundException;
@@ -13,7 +12,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -25,19 +23,19 @@ public class ServerService {
     private final ServerMapper serverMapper;
 
     @Transactional
-    public Long create(ServerInfoDTO dto) throws NotFoundException {
+    public Long create(ServerRequestDTO dto) throws NotFoundException {
         Student student = studentService.getStudentById(dto.getOwnerId());
         return serverRepository.save(new Server(dto.getName(), student, dto.getDescription())).getId();
     }
 
     @Transactional
-    public ServerDTO getById(Long id) throws NotFoundException {
+    public ServerResponseDTO getById(Long id) throws NotFoundException {
         Server server = getServer(id);
         return serverMapper.toDto(server);
     }
 
     @Transactional
-    public List<ServerDTO> getAll() {
+    public List<ServerResponseDTO> getAll() {
         List<Server> server = serverRepository.findAllByDeletedFalse();
         return serverMapper.toDto(server);
     }
