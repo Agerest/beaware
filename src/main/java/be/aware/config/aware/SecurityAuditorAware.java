@@ -1,14 +1,12 @@
-package be.aware.config;
+package be.aware.config.aware;
 
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-@Component
 public class SecurityAuditorAware implements AuditorAware<String> {
 
     @Override

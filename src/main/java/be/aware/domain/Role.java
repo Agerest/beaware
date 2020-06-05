@@ -14,6 +14,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Entity
 @Table(name = "role")
+
 public class Role extends AbstractEntity implements GrantedAuthority {
 
     @Column(name = "name", unique = true, nullable = false)

@@ -6,6 +6,7 @@ spring:
         username: ${SPRING_DATASOURCE_USERNAME:postgres}
         password: ${SPRING_DATASOURCE_PASSWORD:postgres}
         driver-class-name: org.postgresql.Driver
+        initialization-mode: embedded
     jpa:
         open-in-view: false
         properties:
