@@ -42,7 +42,7 @@ public class ChannelResource {
     public void addMessage(@PathVariable("id") Long id,
                            @RequestParam Long messageId) throws NotFoundException {
         log.debug("Adding message with id {} to channel with id {}", messageId, id);
-        channelService.addMessage(id, messageService.getById(id));
+        channelService.addMessage(id, messageService.getById(messageId));
     }
 
     @GetMapping("/{id}")
@@ -61,7 +61,7 @@ public class ChannelResource {
     public void addTimetable(@PathVariable("id") Long id,
                              @RequestParam Long timetableId) throws NotFoundException {
         log.debug("Adding timetable with id {} to channel with id {}", timetableId, id);
-        channelService.addTimetable(id, timetableService.getById(id));
+        channelService.addTimetable(id, timetableService.getById(timetableId));
     }
 
     @GetMapping("/{id}/timetables")

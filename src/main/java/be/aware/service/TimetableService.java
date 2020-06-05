@@ -1,12 +1,10 @@
 package be.aware.service;
 
-import be.aware.domain.Message;
 import be.aware.domain.Timetable;
 import be.aware.dto.TimetableDTO;
 import be.aware.repository.TimetableRepository;
 import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @AllArgsConstructor

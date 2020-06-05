@@ -340,7 +340,7 @@ $(function () {
         console.log(req.status);
         if (req.status === 200) {
             messageId = req.responseText;
-            console.log(channelId);
+            console.log(messageId);
         } else {
             $('.check-info').remove();
             $('.last-item').append("<h5 class=\"red-text check-info center-align\">check input data</h5>");

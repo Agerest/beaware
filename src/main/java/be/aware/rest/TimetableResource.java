@@ -2,7 +2,6 @@ package be.aware.rest;
 
 import be.aware.dto.TimetableDTO;
 import be.aware.service.TimetableService;
-import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;

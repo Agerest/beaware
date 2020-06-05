@@ -1,8 +1,8 @@
 package be.aware.rest;
 
 import be.aware.dto.channel.ChannelResponseDTO;
-import be.aware.dto.server.ServerResponseDTO;
 import be.aware.dto.server.ServerRequestDTO;
+import be.aware.dto.server.ServerResponseDTO;
 import be.aware.mapper.ChannelMapper;
 import be.aware.service.ChannelService;
 import be.aware.service.ServerService;
@@ -48,14 +48,14 @@ public class ServerResource {
     public void addChannel(@PathVariable("id") Long id,
                            @RequestParam Long channelId) throws NotFoundException {
         log.debug("Adding channel with id {} to server with id {}", channelId, id);
-        serverService.addChannel(id, channelService.getById(id));
+        serverService.addChannel(id, channelService.getById(channelId));
     }
 
     @PostMapping("/{id}/add-student")
     public void addStudent(@PathVariable("id") Long id,
                            @RequestParam Long studentId) throws NotFoundException {
         log.debug("Adding student with id {} to server with id {}", studentId, id);
-        serverService.addStudent(id, studentService.getStudentById(id));
+        serverService.addStudent(id, studentService.getStudentById(studentId));
     }
 
     @GetMapping("/{id}/get-channels")

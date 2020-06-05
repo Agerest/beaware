@@ -4,12 +4,10 @@ import be.aware.domain.Image;
 import be.aware.domain.Message;
 import be.aware.domain.Student;
 import be.aware.repository.MessageRepository;
-import be.aware.util.ImageUploadUtil;
 import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
