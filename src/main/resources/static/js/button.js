@@ -212,6 +212,33 @@ $(function () {
         $('#index').empty();
         $('#index').append(
             '    <div class="row center-align">\n' +
+            '        <h1>TIMETABLE</h1>\n' +
+            '    </div>\n' +
+            '    <div class="row">\n' +
+            '        <table>\n' +
+            '            <thead>\n' +
+            '            <tr>\n' +
+            '                <th>Date</th>\n' +
+            '                <th>Type</th>\n' +
+            '                <th>Classroom</th>\n' +
+            '                <th>Teacher</th>\n' +
+            '            </tr>\n' +
+            '            </thead>\n' +
+            '            <tbody>\n' +
+            '            <tr>\n' +
+            '                <td>Monday 11:40</td>\n' +
+            '                <td>Lecture</td>\n' +
+            '                <td>2-10</td>\n' +
+            '                <td>Ed Sheeran</td>\n' +
+            '            </tr>\n' +
+            '            </tbody>\n' +
+            '        </table>\n' +
+            '        <div class="row main center-align">\n' +
+            '            <a class="btn timetableForm waves-effect waves-light">change timetable\n' +
+            '                <i class="material-icons right">create</i></a>\n' +
+            '        </div>\n' +
+            '    </div>' +
+            '    <div class="row center-align">\n' +
             '        <h1>NEWS</h1>\n' +
             '    </div>' +
             '        <div class="row">\n' +
@@ -322,5 +349,26 @@ $(function () {
             $('.last-item').append("<h5 class=\"red-text check-info center-align\">check input data</h5>");
             return;
         }
+    });
+    $('body').on("click", ".timetableForm", function () {
+        $('#index').empty();
+        $('#index').append(
+            '    <div class="container">\n' +
+            '        <h2 class="center-align">CHANGE TIMETABLE</h2>\n' +
+            '        <form class="col12">\n' +
+            '            <div class="row">\n' +
+            '                <div class="input-field col s12">\n' +
+            '                    <i class="material-icons prefix">mode_edit</i>\n' +
+            '                    <input id="date" name="date" type="text" autofocus required>\n' +
+            '                    <label for="date">date</label>\n' +
+            '                </div>\n' +
+            '            </div>\n' +
+            '            <div class="center-align">\n' +
+            '                <button type="button" id="newTimetable" class="btn waves-effect waves-light">Submit\n' +
+            '                    <i class="material-icons right">send</i>\n' +
+            '                </button>\n' +
+            '            </div>\n' +
+            '        </form>\n' +
+            '    </div>');
     });
 });
