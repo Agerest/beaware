@@ -24,7 +24,7 @@ public class ChannelService {
     @Transactional
     public Channel getById(Long id) throws NotFoundException {
         return channelRepository.findByIdAndDeletedFalse(id)
-                .orElseThrow(() -> new NotFoundException("Channel not found, id: " + id));
+                .orElseThrow(() -> new NotFoundException("No channel found with id: " + id));
     }
 
     @Transactional

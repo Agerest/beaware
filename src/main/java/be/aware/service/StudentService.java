@@ -21,7 +21,7 @@ public class StudentService {
     @Transactional
     public Student getStudentById(Long id) throws NotFoundException {
         return studentRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Student not found, id: " + id));
+                .orElseThrow(() -> new NotFoundException("No student found with id: " + id));
     }
 
     @Transactional
@@ -35,7 +35,7 @@ public class StudentService {
     @Transactional
     public Student getByUsername(String username) throws NotFoundException {
         return studentRepository.getByUsername(username)
-                .orElseThrow(() -> new NotFoundException("Student not found, username: " + username));
+                .orElseThrow(() -> new NotFoundException("No student found with username: " + username));
     }
 
     @Transactional

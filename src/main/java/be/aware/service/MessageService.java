@@ -22,7 +22,7 @@ public class MessageService {
     @Transactional
     public Message getById(Long id) throws NotFoundException {
         return messageRepository.findByIdAndDeletedFalse(id)
-                .orElseThrow(() -> new NotFoundException("Message not found, id: " + id));
+                .orElseThrow(() -> new NotFoundException("No message found with id: " + id));
     }
 
     @Transactional

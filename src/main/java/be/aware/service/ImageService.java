@@ -26,6 +26,6 @@ public class ImageService {
     @Transactional
     public Image getById(Long id) throws NotFoundException {
         return imageRepository.findByIdAndDeletedFalse(id)
-                .orElseThrow(() -> new NotFoundException("Image not found, id: " + id));
+                .orElseThrow(() -> new NotFoundException("No image found with id: " + id));
     }
 }

@@ -22,6 +22,6 @@ public class TimetableService {
 
     public Timetable getById(Long id) throws NotFoundException {
         return timetableRepository.findByIdAndDeletedFalse(id)
-                .orElseThrow(() -> new NotFoundException("No user timetable with id: " + id));
+                .orElseThrow(() -> new NotFoundException("No timetable found with id: " + id));
     }
 }

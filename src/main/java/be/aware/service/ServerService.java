@@ -49,7 +49,7 @@ public class ServerService {
 
     private Server getServer(Long id) throws NotFoundException {
         return serverRepository.getByIdAndDeletedFalse(id)
-                .orElseThrow(() -> new NotFoundException("Server not found, id: " + id));
+                .orElseThrow(() -> new NotFoundException("No server found with id: " + id));
     }
 
     @Transactional

@@ -25,7 +25,7 @@ public class UserService {
 
     @Transactional
     public User registerNewUserAccount(UserDTO userDto) throws UserAlreadyExistException {
-        if (userRepository.existsByUsernameAndDeletedFalse(userDto.getEmail())) {
+        if (userRepository.existsByUsernameAndDeletedFalse(userDto.getUsername())) {
             throw new UserAlreadyExistException("There is an account with that username: " + userDto.getUsername());
         }
         User user = userMapper.toEntity(userDto);
