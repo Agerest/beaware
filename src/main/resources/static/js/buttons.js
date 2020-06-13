@@ -52,6 +52,7 @@ $(function () {
         student.imageId = imageId;
         console.log(student)
         req.open('POST', 'api/student/create', false);
+        req.setRequestHeader("Content-type", "application/json;charset=UTF-8");
         req.send(JSON.stringify(student));
         console.log(req.status);
         if (req.status === 200) {
