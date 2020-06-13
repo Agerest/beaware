@@ -24,6 +24,12 @@ $(function () {
             $('.last-item').append("<h5 class=\"red-text check-info center-align\">check input data</h5>");
         }
     });
+    $('#logout').click(function () {
+        req.open('POST', 'logout', false);
+        req.send();
+        console.log(req.status);
+        window.location.href = "/";
+    });
     $('#personal').click(function () {
         let firstName = $("#firstName").val();
         let lastName = $("#lastName").val();
